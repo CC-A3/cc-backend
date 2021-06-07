@@ -1,0 +1,29 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /api/v1
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=ccbackend
+    username: postgres
+    password: admin
+  flyway:
+    enabled: true
+    schemas: ccbackend
+  jpa:
+    properties:
+      hibernate:
+        default_schema: ccbackend
+    show-sql: true
+
+logging:
+  pattern:
+    dateFormat: yyyy-MM-dd HH:mm:ss.SSS ZZZ
+  level:
+    com.cloudcomputing: debug
+
+
+jwt:
+  secret: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure
