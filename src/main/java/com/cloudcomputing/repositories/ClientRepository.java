@@ -32,4 +32,10 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("update Client c set c.password = :password where c.id = :id")
     int updatePasswordById(@Param("id") Long id, @Param("password") String password);
 
+    @Modifying
+    @Query("update Client c set c.fullName = :fullName, c.phoneNumber = :phoneNumber where c.id = :id")
+    int updateFullNameAndPhoneNumberById(@Param("id") Long id,
+                                         @Param("fullName") String fullName,
+                                         @Param("phoneNumber") String phoneNumber);
+
 }

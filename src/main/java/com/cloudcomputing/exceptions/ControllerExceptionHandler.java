@@ -1,20 +1,16 @@
 package com.cloudcomputing.exceptions;
 
-import com.cloudcomputing.exceptions.ErrorDto;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.sql.rowset.WebRowSet;
 
 import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
-@RequiredArgsConstructor
+@RestControllerAdvice
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = {ClientNotFoundException.class})
@@ -35,6 +31,11 @@ public class ControllerExceptionHandler {
                 .body(new ErrorDto("INCORRECT_PRE_PASSWORD", e.getLocalizedMessage()));
     }
 
+    @ExceptionHandler(value = {BadCredentialsException.class})
+    public ResponseEntity<ErrorDto> handleBadCredentialsException(BadCredentialsException e) {
+        return ResponseEntity.status(BAD_REQUEST)
+                .body(new ErrorDto("BAD_CREDENTIALS", e.getLocalizedMessage()));
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleException(Exception exception) {

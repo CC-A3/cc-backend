@@ -49,7 +49,9 @@ public class ClientService {
     }
 
     public boolean isClientVerified(String email) {
-        return clientRepository.existsClientByEmailAndVerifiedFalse(email);
+        Client client = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new ClientNotFoundException("No such client"));
+        return client.isVerified();
     }
 
     public String createClientAndGenerateLink(ClientPostDto clientPostDto){
@@ -124,6 +126,14 @@ public class ClientService {
         ClientProfileDto clientProfileDto = clientMapper.profileFromEntity(client);
         return clientProfileDto;
     }
+
+    public ClientProfileDto changeProfile(ClientProfileDto dto) {
+        clientRepository.updateFullNameAndPhoneNumberById(dto.getId(),dto.getFullName(),dto.getPhoneNumber());
+        ClientProfileDto returnedDto = clientMapper.profileFromEntity(clientRepository.findById(dto.getId()).get());
+        return returnedDto;
+    }
+
+
 
 
 }

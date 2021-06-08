@@ -56,4 +56,10 @@ public class ClientController {
         return new ResponseEntity(dto, OK);
     }
 
+    @PutMapping("/profile/change")
+    public ResponseEntity changeProfile(@RequestBody ClientProfileDto clientProfileDto) {
+        ClientProfileDto dto = clientService.changeProfile(clientProfileDto);
+        return new ResponseEntity(dto, OK);
+    }
+
 }
