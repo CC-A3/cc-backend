@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -43,6 +44,6 @@ public class Client {
     joinColumns = @JoinColumn(name = "client_id"),
     inverseJoinColumns = @JoinColumn(name = "vehicle_id",
     referencedColumnName = "id"))
-    private Set<Vehicle> vehicles;
+    private List<Vehicle> vehicles;
 
 }

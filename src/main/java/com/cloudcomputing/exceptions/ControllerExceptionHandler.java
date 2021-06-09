@@ -37,6 +37,12 @@ public class ControllerExceptionHandler {
                 .body(new ErrorDto("BAD_CREDENTIALS", e.getLocalizedMessage()));
     }
 
+    @ExceptionHandler(value = {VehicleNotFoundException.class})
+    public ResponseEntity<ErrorDto> handleVehicleNotFoundException(VehicleNotFoundException e) {
+        return ResponseEntity.status(NOT_FOUND)
+                .body(new ErrorDto("VEHICLE_NOT_FOUND", e.getLocalizedMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleException(Exception exception) {
         log.info("There is an exception occurred", exception);

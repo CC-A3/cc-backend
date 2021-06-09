@@ -5,6 +5,7 @@ import com.cloudcomputing.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
@@ -61,5 +62,6 @@ public class ClientController {
         ClientProfileDto dto = clientService.changeProfile(clientProfileDto);
         return new ResponseEntity(dto, OK);
     }
+
 
 }

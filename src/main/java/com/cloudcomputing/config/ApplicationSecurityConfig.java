@@ -27,7 +27,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/login", "/signup", "/verify",
-                        "/change-password","/profile/{id}","/profile/change"
+                        "/change-password","/profile/{id}","/profile/change",
+                        "/vehicles/add", "/vehicles", "/vehicles/own-vehicles/{ownerId}",
+                        "/vehicles/watch-list/{clientId}", "/vehicles/{id}/price/{price}",
+                        "/vehicles/{id}/status/{status}", "/vehicles/{vehicleId}/subscribe/{clientId}"
                 )
                 .permitAll()
                 .antMatchers("/", "index", "/css/*", "/actuator/*")

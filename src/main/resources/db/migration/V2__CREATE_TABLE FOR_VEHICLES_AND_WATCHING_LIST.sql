@@ -2,7 +2,7 @@ create table vehicle(
     id serial primary key,
     title varchar(512) not null,
     price bigint not null,
-    kilometers int not null,
+    kilometers integer not null,
     colour varchar(255) not null,
     body varchar(512) not null,
     engine varchar(255) not null,

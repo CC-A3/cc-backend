@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -58,6 +59,6 @@ public class Vehicle {
     private Long ownerId;
 
     @ManyToMany(mappedBy = "vehicles")
-    private Set<Client> clients;
+    private List<Client> clients;
 
 }
