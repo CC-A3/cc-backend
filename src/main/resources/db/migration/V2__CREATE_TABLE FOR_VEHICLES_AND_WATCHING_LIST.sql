@@ -1,3 +1,4 @@
+CREATE SCHEMA if not exists "ccbackend";
 create table vehicle(
     id serial primary key,
     title varchar(512) not null,

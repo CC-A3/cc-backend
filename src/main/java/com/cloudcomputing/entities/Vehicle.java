@@ -50,9 +50,11 @@ public class Vehicle {
     private String fuelConsumption;
 
     @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private CarType type;
 
     @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name = "owner_Id", nullable = false)
