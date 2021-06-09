@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'com.amazonaws:aws-java-sdk:1.11.857'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'

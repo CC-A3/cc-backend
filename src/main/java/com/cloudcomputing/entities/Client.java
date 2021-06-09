@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -35,7 +36,13 @@ public class Client {
     private String password;
 
     @Column(name = "is_verified", nullable = false)
-    private boolean isVerified;
+    private boolean isVerified  ;
 
+    @ManyToMany(targetEntity = Vehicle.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "watch_list",
+    joinColumns = @JoinColumn(name = "client_id"),
+    inverseJoinColumns = @JoinColumn(name = "vehicle_id",
+    referencedColumnName = "id"))
+    private Set<Vehicle> vehicles;
 
 }

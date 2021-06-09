@@ -111,11 +111,14 @@ public class ClientService {
     public void checkPassword(Long id, String currentPassword) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new ClientNotFoundException("No client with " + id));
-        if(!passwordEncoder.encode(currentPassword).equals(client.getPassword())){
+        if(!passwordEncoder.matches(currentPassword,client.getPassword())){
+            log.info("input password: " + passwordEncoder.encode(currentPassword));
+            log.info("real password: " + client.getPassword());
             throw new PasswordIncorrectException("The password is incorrect!");
         }
     }
 
+    @Transactional
     public void changePassword(Long id, String newPassword) {
         clientRepository.updatePasswordById(id, passwordEncoder.encode(newPassword));
     }
@@ -127,6 +130,7 @@ public class ClientService {
         return clientProfileDto;
     }
 
+    @Transactional
     public ClientProfileDto changeProfile(ClientProfileDto dto) {
         clientRepository.updateFullNameAndPhoneNumberById(dto.getId(),dto.getFullName(),dto.getPhoneNumber());
         ClientProfileDto returnedDto = clientMapper.profileFromEntity(clientRepository.findById(dto.getId()).get());

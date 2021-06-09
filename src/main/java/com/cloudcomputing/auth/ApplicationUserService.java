@@ -24,7 +24,7 @@ public class ApplicationUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Client client = mapToUserDetails(email);
 
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("role:fake");
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("role:user");
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(authority);
 
