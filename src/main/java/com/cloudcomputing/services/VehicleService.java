@@ -46,6 +46,13 @@ public List<VehicleGetDto> fetchVehiclesByType(CarType type) {
     return vehicles;
 }
 
+public VehicleGetDto fetchVehicleById(Long id) {
+    Vehicle vehicle = vehicleRepository.findById(id)
+            .orElseThrow(()->new VehicleNotFoundException("No such vehicle with id: " + id));
+    VehicleGetDto returnedDto = vehicleMapper.fromEntity(vehicle);
+    return returnedDto;
+}
+
 public List<VehicleGetDto> fetchVehicleList(Long ownerId) {
     List<Vehicle> list = vehicleRepository.findByOwnerId(ownerId);
     List<VehicleGetDto> vehicleList = new ArrayList<>();

@@ -34,6 +34,12 @@ public class VehicleController {
         return new ResponseEntity(vehicleList, OK);
     }
 
+    @GetMapping("/vehicles/{vehicleId}")
+    public ResponseEntity fetchVehicleById(@PathVariable Long vehicleId) {
+        VehicleGetDto vehicleGetDto = vehicleService.fetchVehicleById(vehicleId);
+        return new ResponseEntity(vehicleGetDto,OK);
+    }
+
     @GetMapping("/vehicles/own-vehicles/{ownerId}")
     public ResponseEntity fetchVehiclesByOwnerId(@PathVariable Long ownerId) {
         List<VehicleGetDto> vehicles = vehicleService.fetchVehicleList(ownerId);
@@ -70,4 +76,5 @@ public class VehicleController {
         vehicleService.removeFromWatchList(clientId,vehicleId);
         return new ResponseEntity("Removed to watch list", OK);
     }
+
 }
