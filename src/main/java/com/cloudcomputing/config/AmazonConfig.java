@@ -17,8 +17,8 @@ public class AmazonConfig {
     private static final String DB_SERVICE_ENDPOINT = "dynamodb.ap-southeast-2.amazonaws.com";
     private static final String S3_SERVICE_ENDPOINT = "s3.ap-southeast-2.amazonaws.com";
     private static final String REGION = "ap-southeast-2";
-    private static final String ACCESS_KEY = "AKIAXYFUMLHTN5VMJLZZ";
-    private static final String SECRET_KEY = "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";
+    private static final String ACCESS_KEY = "";
+    private static final String SECRET_KEY = "";
 
 
     @Bean
