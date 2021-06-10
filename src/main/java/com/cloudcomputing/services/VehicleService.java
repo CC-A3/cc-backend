@@ -75,7 +75,6 @@ public List<VehicleGetDto> fetchVehicleList(Long ownerId) {
                 .collect(Collectors.toList());
     }
     for(VehicleGetDto v : vehicleList) {
-        v.setIsWatched(true);
         v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
     }
     return vehicleList;
@@ -90,6 +89,10 @@ public List<VehicleGetDto> fetchWatchList(Long clientId) {
         returnedWatchList = watchList.stream()
                 .map(vehicle -> vehicleMapper.fromEntity(vehicle))
                 .collect(Collectors.toList());
+        for(VehicleGetDto v : returnedWatchList) {
+            v.setIsWatched(true);
+            v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
+        }
     }
     return returnedWatchList;
 }
