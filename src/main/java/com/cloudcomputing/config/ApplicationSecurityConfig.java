@@ -28,11 +28,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/login", "/signup", "/verify",
                         "/change-password","/profile/{id}","/profile/change",
-                        "/vehicles/add", "/vehicles", "/vehicles/own-vehicles/{ownerId}",
+                        "/vehicles/add", "/vehicles", "/vehicle","/vehicles/own-vehicles/{ownerId}",
                         "/vehicles/watch-list/{clientId}", "/vehicles/{id}/price/{price}",
                         "/vehicles/{id}/status/{status}", "/vehicles/{vehicleId}/subscribe/{clientId}",
                         "/vehicles/{vehicleId}/unsubscribe/{clientId}","/vehicles/{vehicleId}"
-
                 )
                 .permitAll()
                 .antMatchers("/", "index", "/css/*", "/actuator/*")

@@ -34,13 +34,22 @@ public VehicleGetDto createVehicle(VehiclePostDto vehiclePostDto) {
     return vehicleMapper.fromEntity(vehicle);
 }
 
-public List<VehicleGetDto> fetchVehiclesByType(CarType type) {
+public List<VehicleGetDto> fetchVehiclesByType(CarType type, Long clientId) {
     List<Vehicle> vehicleList = vehicleRepository.findAllAvailableByTitle(type);
     List<VehicleGetDto> vehicles = new ArrayList<>();
     if(!vehicleList.isEmpty()){
         vehicles = vehicleList.stream()
                 .map(vehicle -> vehicleMapper.fromEntity(vehicle))
                 .collect(Collectors.toList());
+
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(()-> new ClientNotFoundException("No such client with id: " + clientId));
+        for(VehicleGetDto v : vehicles) {
+            Vehicle vehicle = vehicleRepository.findById(v.getId())
+                    .orElseThrow(() -> new VehicleNotFoundException("No such car"));
+            v.setIsWatched(vehicle.getClients().contains(client));
+            v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
+        }
     }
     return vehicles;
 }
@@ -64,6 +73,10 @@ public List<VehicleGetDto> fetchVehicleList(Long ownerId) {
         vehicleList = list.stream()
                 .map(vehicle -> vehicleMapper.fromEntity(vehicle))
                 .collect(Collectors.toList());
+    }
+    for(VehicleGetDto v : vehicleList) {
+        v.setIsWatched(true);
+        v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
     }
     return vehicleList;
 }
