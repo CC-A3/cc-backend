@@ -10,7 +10,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class AmazonConfig {
     private static final String DB_SERVICE_ENDPOINT = "dynamodb.ap-southeast-2.amazonaws.com";
     private static final String S3_SERVICE_ENDPOINT = "s3.ap-southeast-2.amazonaws.com";

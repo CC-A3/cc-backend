@@ -34,7 +34,7 @@ public class VehicleController {
         return new ResponseEntity(vehicleList, OK);
     }
 
-    @GetMapping("/vehicles") //
+    @GetMapping("/vehicle") //done
     public ResponseEntity fetchVehicleById(@RequestParam("vehicleId") Long vehicleId, @RequestParam("clientId") Long clientId) {
         VehicleGetDto vehicleGetDto = vehicleService.fetchVehicleById(vehicleId, clientId);
         return new ResponseEntity(vehicleGetDto,OK);
@@ -46,7 +46,7 @@ public class VehicleController {
         return new ResponseEntity(vehicles, OK);
     }
 
-    @GetMapping("/vehicles/watch-list/{clientId}")
+    @GetMapping("/vehicles/watch-list/{clientId}") //done
     public ResponseEntity fetchWatchList(@PathVariable Long clientId) {
         List<VehicleGetDto> watchList = vehicleService.fetchWatchList(clientId);
         return new ResponseEntity(watchList, OK);
@@ -65,13 +65,13 @@ public class VehicleController {
         return new ResponseEntity("Succeed!", OK);
     }
 
-    @PostMapping("/vehicles/{vehicleId}/subscribe/{clientId}")
+    @PostMapping("/vehicles/{vehicleId}/subscribe/{clientId}") //done
     public ResponseEntity subscribeVehicle(@PathVariable Long vehicleId, @PathVariable Long clientId) {
         vehicleService.addToWatchList(clientId,vehicleId);
         return new ResponseEntity("Added to watch list", OK);
     }
 
-    @PostMapping("/vehicles/{vehicleId}/unsubscribe/{clientId}")
+    @PostMapping("/vehicles/{vehicleId}/unsubscribe/{clientId}") //done
     public ResponseEntity unsubscribeVehicle(@PathVariable Long vehicleId, @PathVariable Long clientId) {
         vehicleService.removeFromWatchList(clientId,vehicleId);
         return new ResponseEntity("Removed to watch list", OK);
