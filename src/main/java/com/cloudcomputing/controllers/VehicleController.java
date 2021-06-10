@@ -34,9 +34,9 @@ public class VehicleController {
         return new ResponseEntity(vehicleList, OK);
     }
 
-    @GetMapping("/vehicles/{vehicleId}") //
-    public ResponseEntity fetchVehicleById(@PathVariable Long vehicleId) {
-        VehicleGetDto vehicleGetDto = vehicleService.fetchVehicleById(vehicleId);
+    @GetMapping("/vehicles") //
+    public ResponseEntity fetchVehicleById(@RequestParam("vehicleId") Long vehicleId, @RequestParam("clientId") Long clientId) {
+        VehicleGetDto vehicleGetDto = vehicleService.fetchVehicleById(vehicleId, clientId);
         return new ResponseEntity(vehicleGetDto,OK);
     }
 

@@ -2,13 +2,11 @@ package com.cloudcomputing.services;
 
 import com.cloudcomputing.dtos.VehicleGetDto;
 import com.cloudcomputing.dtos.VehiclePostDto;
-import com.cloudcomputing.entities.CarType;
-import com.cloudcomputing.entities.Client;
-import com.cloudcomputing.entities.Status;
-import com.cloudcomputing.entities.Vehicle;
+import com.cloudcomputing.entities.*;
 import com.cloudcomputing.exceptions.ClientNotFoundException;
 import com.cloudcomputing.exceptions.VehicleNotFoundException;
 import com.cloudcomputing.repositories.ClientRepository;
+import com.cloudcomputing.repositories.ImageRepository;
 import com.cloudcomputing.repositories.VehicleRepository;
 import com.cloudcomputing.utils.mapper.VehicleMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +25,7 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
     private final ClientRepository clientRepository;
     private final VehicleMapper vehicleMapper;
+    private final ImageRepository imageRepository;
 
 public VehicleGetDto createVehicle(VehiclePostDto vehiclePostDto) {
     Vehicle vehicle = vehicleMapper.toEntity(vehiclePostDto);
@@ -46,10 +45,15 @@ public List<VehicleGetDto> fetchVehiclesByType(CarType type) {
     return vehicles;
 }
 
-public VehicleGetDto fetchVehicleById(Long id) {
-    Vehicle vehicle = vehicleRepository.findById(id)
-            .orElseThrow(()->new VehicleNotFoundException("No such vehicle with id: " + id));
+public VehicleGetDto fetchVehicleById(Long vehicleId,Long clientId) {
+    Vehicle vehicle = vehicleRepository.findById(vehicleId)
+            .orElseThrow(()->new VehicleNotFoundException("No such vehicle with id: " + vehicleId));
+    Client client = clientRepository.findById(clientId)
+            .orElseThrow(()-> new ClientNotFoundException("No such client with id: " + clientId));
     VehicleGetDto returnedDto = vehicleMapper.fromEntity(vehicle);
+    returnedDto.setIsWatched(vehicle.getClients().contains(client));
+    Image image = imageRepository.getImageById(vehicleId);
+    returnedDto.setImgUrl(image.getUrl());
     return returnedDto;
 }
 

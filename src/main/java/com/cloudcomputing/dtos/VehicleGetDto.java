@@ -37,5 +37,9 @@ public class VehicleGetDto {
 
     private Status status;
 
+    private Boolean isWatched;
+
     private Long ownerId;
+
+    private String imgUrl;
 }
