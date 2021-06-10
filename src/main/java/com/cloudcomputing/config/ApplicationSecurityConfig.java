@@ -30,7 +30,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/change-password","/profile/{id}","/profile/change",
                         "/vehicles/add", "/vehicles", "/vehicles/own-vehicles/{ownerId}",
                         "/vehicles/watch-list/{clientId}", "/vehicles/{id}/price/{price}",
-                        "/vehicles/{id}/status/{status}", "/vehicles/{vehicleId}/subscribe/{clientId}"
+                        "/vehicles/{id}/status/{status}", "/vehicles/{vehicleId}/subscribe/{clientId}",
+                        "/vehicles/{vehicleId}/unsubscribe/{clientId}"
                 )
                 .permitAll()
                 .antMatchers("/", "index", "/css/*", "/actuator/*")

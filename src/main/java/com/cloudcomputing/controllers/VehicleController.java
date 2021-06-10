@@ -64,4 +64,10 @@ public class VehicleController {
         vehicleService.addToWatchList(clientId,vehicleId);
         return new ResponseEntity("Added to watch list", OK);
     }
+
+    @PostMapping("/vehicles/{vehicleId}/unsubscribe/{clientId}")
+    public ResponseEntity unsubscribeVehicle(@PathVariable Long vehicleId, @PathVariable Long clientId) {
+        vehicleService.removeFromWatchList(clientId,vehicleId);
+        return new ResponseEntity("Removed to watch list", OK);
+    }
 }

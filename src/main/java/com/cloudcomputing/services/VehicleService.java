@@ -84,6 +84,20 @@ public void addToWatchList(Long clientId, Long vehicleId) {
 
 }
 
+public void removeFromWatchList(Long clientId, Long vehicleId) {
+    Client client = clientRepository.findById(clientId)
+            .orElseThrow(() -> new ClientNotFoundException("No such client with id: " + clientId));
+    Vehicle vehicle = vehicleRepository.findById(vehicleId)
+            .orElseThrow(() -> new VehicleNotFoundException("No such vehicle with id: " + vehicleId));
+
+    client.getVehicles().remove(vehicle);
+    vehicle.getClients().remove(client);
+
+    clientRepository.save(client);
+    vehicleRepository.save(vehicle);
+
+}
+
 public BigDecimal changePrice(Long id, BigDecimal price) {
     vehicleRepository.updatePriceById(price,id);
     return price;
