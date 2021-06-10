@@ -22,19 +22,19 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
 
-    @PostMapping("/vehicles/add")
+    @PostMapping("/vehicles/add") //
     public ResponseEntity addCarForSale(@RequestBody VehiclePostDto vehiclePostDto) {
         VehicleGetDto dto = vehicleService.createVehicle(vehiclePostDto);
         return new ResponseEntity(dto, OK);
     }
 
-    @GetMapping("/vehicles")
+    @GetMapping("/vehicles") //done
     public ResponseEntity fetchVehiclesByType(@RequestParam("type") CarType type) {
         List<VehicleGetDto> vehicleList = vehicleService.fetchVehiclesByType(type);
         return new ResponseEntity(vehicleList, OK);
     }
 
-    @GetMapping("/vehicles/{vehicleId}")
+    @GetMapping("/vehicles/{vehicleId}") //
     public ResponseEntity fetchVehicleById(@PathVariable Long vehicleId) {
         VehicleGetDto vehicleGetDto = vehicleService.fetchVehicleById(vehicleId);
         return new ResponseEntity(vehicleGetDto,OK);
