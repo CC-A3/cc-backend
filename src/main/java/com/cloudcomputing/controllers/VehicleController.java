@@ -5,11 +5,14 @@ import com.cloudcomputing.dtos.VehiclePostDto;
 import com.cloudcomputing.entities.CarType;
 import com.cloudcomputing.entities.Status;
 import com.cloudcomputing.services.VehicleService;
+import com.cloudcomputing.upload.UploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,6 +23,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequiredArgsConstructor
 public class VehicleController {
     private final VehicleService vehicleService;
+    private final UploadService uploadService;
 
 
     @PostMapping("/vehicles/add") //
@@ -76,6 +80,15 @@ public class VehicleController {
     public ResponseEntity unsubscribeVehicle(@PathVariable Long vehicleId, @PathVariable Long clientId) {
         vehicleService.removeFromWatchList(clientId,vehicleId);
         return new ResponseEntity("Removed to watch list", OK);
+    }
+
+    @PostMapping(path = "/vehicles/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity uploadUserProfileImage(@RequestParam("file") MultipartFile file) {
+        String url = uploadService.uploadUserProfileImage( file);
+        return new ResponseEntity(url, OK);
     }
 
 }

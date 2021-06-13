@@ -31,7 +31,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/vehicles/add", "/vehicles", "/vehicle", "/vehicles/own-vehicles/{ownerId}",
                         "/vehicles/watch-list/{clientId}", "/vehicles/{id}/price/{price}",
                         "/vehicles/{id}/status/{status}", "/vehicles/{vehicleId}/subscribe/{clientId}",
-                        "/vehicles/{vehicleId}/unsubscribe/{clientId}","/vehicles/{vehicleId}"
+                        "/vehicles/{vehicleId}/unsubscribe/{clientId}","/vehicles/{vehicleId}",
+                        "/vehicles/upload"
                 )
                 .permitAll()
                 .antMatchers("/", "index", "/css/*", "/actuator/*")

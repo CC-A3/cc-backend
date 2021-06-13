@@ -24,7 +24,7 @@ logging:
   level:
     com.cloudcomputing: debug
 
-url: http://localhost:3000
+url: http://www.secondhand-carsales.com
 
 jwt:
   secret: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure

@@ -1,6 +1,6 @@
 FROM openjdk:11 AS build
 WORKDIR /workspace/app
-COPY src /workspace/app
+COPY . /workspace/app
 
 RUN ./gradlew clean build
 

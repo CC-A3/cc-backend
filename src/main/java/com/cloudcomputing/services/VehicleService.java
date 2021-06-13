@@ -12,9 +12,12 @@ import com.cloudcomputing.utils.mapper.VehicleMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,11 +30,19 @@ public class VehicleService {
     private final VehicleMapper vehicleMapper;
     private final ImageRepository imageRepository;
 
+
 public VehicleGetDto createVehicle(VehiclePostDto vehiclePostDto) {
     Vehicle vehicle = vehicleMapper.toEntity(vehiclePostDto);
     vehicle.setStatus(Status.AVAILABLE);
     vehicleRepository.save(vehicle);
-    return vehicleMapper.fromEntity(vehicle);
+    imageRepository.add(Image.builder()
+            .id(vehicle.getId())
+            .url(vehiclePostDto.getImgUrl())
+            .build());
+
+    VehicleGetDto dto = vehicleMapper.fromEntity(vehicle);
+    dto.setImgUrl(vehiclePostDto.getImgUrl());
+    return dto;
 }
 
 public List<VehicleGetDto> fetchVehiclesByType(CarType type, Long clientId) {
@@ -50,6 +61,12 @@ public List<VehicleGetDto> fetchVehiclesByType(CarType type, Long clientId) {
             v.setIsWatched(vehicle.getClients().contains(client));
             v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
         }
+        Collections.sort(vehicles, new Comparator<VehicleGetDto>() {
+            @Override
+            public int compare(VehicleGetDto o1, VehicleGetDto o2) {
+                return o2.getId().compareTo(o1.getId());
+            }
+        });
     }
     return vehicles;
 }
@@ -76,7 +93,14 @@ public List<VehicleGetDto> fetchVehicleList(Long ownerId) {
     }
     for(VehicleGetDto v : vehicleList) {
         v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
+
     }
+    Collections.sort(vehicleList, new Comparator<VehicleGetDto>() {
+        @Override
+        public int compare(VehicleGetDto o1, VehicleGetDto o2) {
+            return o2.getId().compareTo(o1.getId());
+        }
+    });
     return vehicleList;
 }
 
@@ -93,6 +117,12 @@ public List<VehicleGetDto> fetchWatchList(Long clientId) {
             v.setIsWatched(true);
             v.setImgUrl(imageRepository.getImageById(v.getId()).getUrl());
         }
+        Collections.sort(returnedWatchList, new Comparator<VehicleGetDto>() {
+            @Override
+            public int compare(VehicleGetDto o1, VehicleGetDto o2) {
+                return o2.getId().compareTo(o1.getId());
+            }
+        });
     }
     return returnedWatchList;
 }
@@ -125,14 +155,15 @@ public void removeFromWatchList(Long clientId, Long vehicleId) {
 
 }
 
+@Transactional
 public BigDecimal changePrice(Long id, BigDecimal price) {
     vehicleRepository.updatePriceById(price,id);
     return price;
 }
 
+@Transactional
 public void changeStatus(Long id, Status status) {
     vehicleRepository.updateStatusById(status, id);
 }
-
 
 }

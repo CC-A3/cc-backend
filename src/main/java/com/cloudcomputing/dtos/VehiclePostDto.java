@@ -32,6 +32,8 @@ public class VehiclePostDto {
 
     private CarType type;
 
+    private String imgUrl;
+
     private Long ownerId;
 
 

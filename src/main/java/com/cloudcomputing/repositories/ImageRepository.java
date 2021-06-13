@@ -14,4 +14,9 @@ public class ImageRepository {
     public Image getImageById(Long id){
         return mapper.load(Image.class,id);
     }
+
+    public void add(Image image) {
+         mapper.save(image);
+    }
+
 }
