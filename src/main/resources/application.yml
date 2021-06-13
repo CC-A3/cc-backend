@@ -17,6 +17,9 @@ spring:
       hibernate:
         default_schema: ccbackend
     show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 80MB
 
 logging:
   pattern:
